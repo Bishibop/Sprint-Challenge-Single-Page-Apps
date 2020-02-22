@@ -7,6 +7,7 @@ const initialCharactersUrl = 'https://rickandmortyapi.com/api/character';
 export default function CharacterList() {
 
   const [characters, setCharacters] = useState([]);
+  const [searchResults, setSearchResults] = useState();
   //const [prevUrl, setPrevUrl] = useState();
   //const [nextUrl, setNextUrl] = useState();
 
@@ -28,9 +29,17 @@ export default function CharacterList() {
 
   return (
     <div>
-      <SearchForm characters={characters} setCharacters={setCharacters} />,
+      <SearchForm
+        characters={characters}
+        setCharacters={setCharacters}
+        searchResults={searchResults}
+        setSearchResults={setSearchResults}
+      />
       <section className="character-list">
-        {characters.map(character => (
+        {searchResults && searchResults.map(character => (
+          <CharacterCard key={character.id} character={character} />
+        ))}
+        {!searchResults && characters.map(character => (
           <CharacterCard key={character.id} character={character} />
         ))}
       </section>
