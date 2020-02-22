@@ -1,16 +1,39 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import CharacterCard from "./CharacterCard.js";
+import SearchForm from "./SearchForm.js";
 
+const initialCharactersUrl = 'https://rickandmortyapi.com/api/character';
 export default function CharacterList() {
-  // TODO: Add useState to track data from useEffect
+
+  const [characters, setCharacters] = useState([]);
+  //const [prevUrl, setPrevUrl] = useState();
+  //const [nextUrl, setNextUrl] = useState();
+
+  function getCharacters() {
+    axios.get(initialCharactersUrl).then(res => {
+      console.log('Axios data', res.data.results);
+      //setPrevUrl(res.data.info.prev);
+      //setNextUrl(res.data.info.next);
+      setCharacters(res.data.results);
+    });
+  }
 
   useEffect(() => {
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
+    getCharacters();
+    //This might need `characters` in the dependency array
+    // Then wouldn't it run in a loop. Running useEffect every time that state
+    // chaged which is every time you run useEffect?
   }, []);
 
   return (
-    <section className="character-list">
-      <h2>TODO: `array.map()` over your state here!</h2>
-    </section>
+    <div>
+      <SearchForm characters={characters} setCharacters={setCharacters} />,
+      <section className="character-list">
+        {characters.map(character => (
+          <CharacterCard key={character.id} character={character} />
+        ))}
+      </section>
+    </div>
   );
 }
