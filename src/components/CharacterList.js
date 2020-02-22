@@ -31,8 +31,6 @@ export default function CharacterList() {
     <div>
       <SearchForm
         characters={characters}
-        setCharacters={setCharacters}
-        searchResults={searchResults}
         setSearchResults={setSearchResults}
       />
       <section className="character-list">

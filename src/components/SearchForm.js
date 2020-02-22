@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { withFormik, Form, Field } from "formik";
 import styled from 'styled-components';
 
@@ -72,14 +72,12 @@ const FormikSearchForm = withFormik({
   }
 })(Search);
 
-export default function SearchForm({ characters, setCharacters, searchResults, setSearchResults }) {
+export default function SearchForm({ characters, setSearchResults }) {
  
   return (
     <section className="search-form">
       <FormikSearchForm
         characters={characters}
-        setCharacters={setCharacters}
-        searchResults={searchResults}
         setSearchResults={setSearchResults}
       />
     </section>
